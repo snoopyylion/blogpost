@@ -1,4 +1,3 @@
-import Image from "next/image";
 import SearchForm from "../../components/SearchForm";
 import StartupCard, { NewsTypeCard} from "@/components/StartupCard";
 import { newsQuery } from "@/sanity/lib/queries";

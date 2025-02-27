@@ -7,7 +7,6 @@ import { notFound } from 'next/navigation';
 import React, { Suspense } from 'react';
 import markdownIt from 'markdown-it';
 import { Skeleton } from '@/components/ui/skeleton';
-import View from '@/components/View';
 import ViewCount from '@/components/ViewCount';
 
 const md = markdownIt();
@@ -31,7 +30,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
       </section>
 
       <section className="section_container">
-        <img src={post.image} alt="thumbnail" className="w-full h-auto rounded-xl" />
+        <Image src={post.image} alt="thumbnail" className="w-full h-auto rounded-xl" />
 
         <div className="space-y-5 mt-10 max-w-4xl mx-auto">
           <div className="flex-between gap-5">
