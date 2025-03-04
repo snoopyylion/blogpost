@@ -22,8 +22,6 @@ const Page = async ({ params }: { params: { id: string } }) => {
     client.fetch(NEWS_BY_ID_QUERY, { id }),
     client.fetch(PLAYLIST_BY_SLUG_QUERY, { slug: "editors-pick" }),
   ]);
-  console.log("Playlist Data:", playlist);  // Debugging
-  console.log("Editor Picks:", playlist?.select);
   
   if (!post) return notFound();
   
@@ -85,7 +83,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
         </div>
 
         <hr className="divider" />
-        <div>
+        <div className="mt-7 card_grid-sm">
         {editorPosts?.length > 0 && (
           <div className="max-w-4xl mx-auto">
             <p className="text-30-semibold">Editor Picks</p>
