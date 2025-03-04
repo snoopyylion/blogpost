@@ -40,7 +40,7 @@ export const news = defineType({
             validation: (Rule) => Rule.required(),
         }),
         defineField({
-            name: 'pitch',
+            name: 'news',
             type: 'markdown',
         }),
     ],

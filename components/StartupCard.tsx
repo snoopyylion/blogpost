@@ -1,10 +1,11 @@
-import { formatDate } from '@/lib/utils'
+import { cn, formatDate } from '@/lib/utils'
 import { EyeIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { Button } from './ui/button'
 import { News, Author } from '@/sanity/types'
+import { Skeleton } from './ui/skeleton'
 
 export type NewsTypeCard = Omit< News, "author"> & { author?: Author }
 
@@ -32,7 +33,7 @@ const StartupCard = ({ post }: { post: NewsTypeCard}) => {
                 </Link>
             </div>
             <Link href={`/user/${author?._id}`}>
-            <Image className='rounded-full' src="https://placehold.co/48x48" alt="placeholder" width={48} height={48}/>
+            <Image className='rounded-full' src={author?.image!} alt={author?.name!} width={48} height={48}/>
             </Link>
         </div>
         <Link href={`/startup/${_id}`}>
@@ -51,6 +52,16 @@ const StartupCard = ({ post }: { post: NewsTypeCard}) => {
         </div>
     </li>
   )
+}
+
+export const NewsCardSkeleton = () => {
+    <>
+    {[ 0, 1, 2, 3, 4 ].map((index: number) =>(
+        <li key={cn('skeleton', index)}>
+            <Skeleton className='startup-card_skeleton'/>
+        </li>
+    ))}
+    </>
 }
 
 export default StartupCard

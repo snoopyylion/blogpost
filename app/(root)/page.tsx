@@ -2,12 +2,20 @@ import SearchForm from "../../components/SearchForm";
 import StartupCard, { NewsTypeCard} from "@/components/StartupCard";
 import { newsQuery } from "@/sanity/lib/queries";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
+import { auth } from "@/auth";
 
 export default async function Home({searchParams}: {
+
+
   searchParams: Promise<{ query?: string }>
 }) {
   const query = (await searchParams).query;
   const params = { search: query || null };
+
+  const session = await auth();
+  console.log(session?.id);
+
+
   const { data: posts } = await sanityFetch({ query: newsQuery, params })
   // const posts = [{
   //   _createdAt: new Date(),
@@ -35,7 +43,7 @@ export default async function Home({searchParams}: {
       </section>
       <section className="section_container">
         <p className="text-30-semibold">
-          {query ? `Search results for "${query}"` : 'All Startups'}
+          {query ? `Search results for "${query}"` : 'General News'}
         </p>
         <ul className="mt-7 card_grid">
           {posts?.length > 0 ? (

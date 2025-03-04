@@ -1,32 +1,30 @@
-import Ping from "@/components/Ping";
-import { client } from "@/sanity/lib/client";
-import { NEWS_VEIWS_QUERY } from "@/sanity/lib/queries";
-import { writeClient } from "@/sanity/lib/write-client";
-import { unstable_after as after } from "next/server";
+"use client";
 
-const View = async ({ id }: { id: string }) => {
-  const { views: totalViews } = await client
-    .withConfig({ useCdn: false })
-    .fetch(NEWS_VEIWS_QUERY, { id });
+import { useEffect, useState } from "react";
 
-  after(
-    async () =>
-      await writeClient
-        .patch(id)
-        .set({ views: totalViews + 1 })
-        .commit(),
-  );
+const View = ({ id }: { id: string }) => {
+  const [error, setError] = useState(null);
 
-  return (
-    <div className="view-container">
-      <div className="absolute -top-2 -right-2">
-        <Ping />
-      </div>
+  useEffect(() => {
+    const updateViews = async () => {
+      try {
+        const res = await fetch("/api/update-views", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id }),
+        });
 
-      <p className="view-text">
-        <span className="font-black">Views: {totalViews}</span>
-      </p>
-    </div>
-  );
+        if (!res.ok) throw new Error("Failed to update views");
+      } catch (err) {
+        setError(err.message);
+        console.error("Failed to update views:", err);
+      }
+    };
+
+    updateViews();
+  }, [id]);
+
+  return error ? <p className="text-red-500">Error updating views.</p> : null;
 };
+
 export default View;
