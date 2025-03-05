@@ -13,10 +13,13 @@ export default async function Home({searchParams}: {
   const params = { search: query || null };
 
   const session = await auth();
-  console.log(session?.id);
 
 
-  const { data: posts } = await sanityFetch({ query: newsQuery, params })
+  const { data: posts } = await sanityFetch({ 
+    query: newsQuery, 
+    params, 
+    options: { cache: "no-store" }  // Force fresh fetch
+  });
   // const posts = [{
   //   _createdAt: new Date(),
   //   views: 55,
