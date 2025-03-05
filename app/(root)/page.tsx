@@ -33,7 +33,6 @@ export default async function Home({searchParams}: {
   return (
     <>
       <section className="pink_container">
-        <div className="">
           <h1 className="heading">
             AI-Powered News Verification <br /> for a Truthful World
           </h1>
@@ -42,7 +41,6 @@ export default async function Home({searchParams}: {
             Get real-time verification on trending news, ensuring credibility and trust.
           </p>
           <SearchForm query={query}/>
-        </div>
       </section>
       <section className="section_container">
         <p className="text-30-semibold">
